@@ -1,59 +1,73 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <string>
 using namespace std;
-int main(){
-    int i=1;
 
-    unordered_map<int,string> mp;
-  //  mp[0]='Zero';
-    mp[1]="One";
-    mp[2]="Two";
-    mp[3]="Three";
-    mp[4]="Four";
-    mp[5]="Five";
-    mp[6]="Six";
-    mp[7]="Seven";
-    mp[8]="Eight";
-    mp[9]="Nine";
-    mp[10]="Ten";
-    mp[11]="Eleven";
-    mp[12]="Twelve";
-    mp[13]="Thirteen";
-    mp[14]="Fourteen";
-    mp[15]="Fifteen";
-    mp[16]="Sixteen";
-    mp[17]="Seventeen";
-    mp[18]="Eighteen";
-    mp[19]="Ninteen";
-    mp[20]="Twenty";
-    mp[30]="Thirty";
-    mp[40]="Forty";
-    mp[50]="Fifty";
-    mp[60]="Sixty";
-    mp[70]="Seventy";
-    mp[80]="Eighty";
-    mp[90]="Ninty";
-    mp[100]="Hundred";
-    mp[1000]="Thousand";
-    while(i){
-        long long n;
-        cin>>n;
-        string result="";
-        int count=1;
-        while(n){
-            
-            int temp = n%10;
-            if(mp.count(temp)>0){
-                result =" " + mp[temp] + result;
-            }
-            n=n/10;
-            
-            count++;
+const string EMPTY = "";
 
-        }
+const string X[] = { EMPTY, "One ", "Two ", "Three ", "Four ", "Five ",
+				"Six ", "Seven ", "Eight ", "Nine ", "Ten ", "Eleven ",
+				"Twelve ", "Thirteen ", "Fourteen ", "Fifteen ",
+				"Sixteen ", "Seventeen ", "Eighteen ", "Nineteen " };
 
+const string Y[] = { EMPTY, EMPTY, "Twenty ", "Thirty ", "Forty ", "Fifty ",
+				"Sixty ", "Seventy ", "Eighty ", "Ninety " };
 
-        cout<<"Enter 0 to EXIT\n";
-        cin>>i;
-    }
-    
+// Function to convert single digit or two digit number into words
+string convert2digit(int n, string suffix)
+{
+	// if n is zero
+	if (n == 0) {
+		return EMPTY;
+	}
+
+	// split n if it is more than 19
+	if (n > 19) {
+		return Y[n / 10] + X[n % 10] + suffix;
+	}
+	else {
+		return X[n] + suffix;
+	}
+}
+
+// Function to convert a given number (max 9-digits) into words
+string numberToWords(unsigned long long int n)
+{
+	// string to store word representation of given number
+	string res;
+
+	// this handles digits at ones & tens place
+	res = convert2digit((n % 100), "");
+
+	if (n > 100 && n % 100) {
+		res = "and " + res;
+	}
+
+	// this handles digit at hundreds place
+	res = convert2digit(((n / 100) % 10), "Hundred ") + res;
+
+	// this handles digits at thousands & tens thousands place
+	res = convert2digit(((n / 1000) % 100), "Thousand ") + res;
+
+	// this handles digits at hundred thousands & one millions place
+	res = convert2digit(((n / 100000) % 100), "Lakh, ") + res;
+
+	// this handles digits at ten millions & hundred millions place
+	res = convert2digit((n / 10000000) % 100, "Crore, ") + res;
+
+	// this handles digits at ten millions & hundred millions place
+	res = convert2digit((n / 1000000000) % 100, "Billion, ") + res;
+
+	return res;
+}
+
+// C++ program to convert number to words
+int main()
+{
+	cout << numberToWords(99) << '\n';
+	cout << numberToWords(1000) << '\n';
+	cout << numberToWords(14632) << '\n';
+	cout << numberToWords(997751076) << '\n';
+	cout << numberToWords(2147483647);
+
+	return 0;
 }
