@@ -11,14 +11,14 @@ int main(){
         pair<int,int> p(a,b);
         lists.push_back(p);
     }
-    int distance =INT_MAX;
+    float distance =3.402823466E+38;
     for(int i=0;i<lists.size()-1;i++){
         int x1 = lists[i].first;
         int y1 = lists[i].second;
         for(int j=i+1;j<lists.size();j++){
             int x2=lists[j].first;
             int y2=lists[j].second;
-            int tempDistance = sqrt(((x2-x1)*(x2-x1))+((y2-y1)*(y2-y1)));
+            float tempDistance = sqrt(((x2-x1)*(x2-x1))+((y2-y1)*(y2-y1)));
             distance = min(distance,tempDistance);
         }
     }
