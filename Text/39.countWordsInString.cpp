@@ -3,13 +3,21 @@ using namespace std;
 
 int main(){
     fstream myfile;
-    unordered_map<char,int> mp;
+    unordered_map<string,int> mp;
     string line;
     myfile.open("text.txt");
     if(myfile.is_open()){
         while(getline (myfile,line)){
-            for(int i=0;i<line.size();i++){
-                mp[line[i]]++;
+            string s;
+
+            for(auto ch : line){
+                if(ch==' ' || ch==',' || ch=='.'){
+                    mp[s]++;
+                    s.erase();
+                }
+                else{
+                    s = s + ch;
+                }
             }
         }
         myfile.close();
