@@ -2,7 +2,7 @@
 using namespace std;
 
 int main(){
-    vector<vector<int>> list;
+    vector<vector<int>> lists;
     int n;
     cin>>n;
     int maxLen =-1;
@@ -16,20 +16,20 @@ int main(){
             cin>>val;
             temp.push_back(val);
         }
-        list.push_back(temp);
+        lists.push_back(temp);
     }
 
-    for(int i=0;i<list.size();i++){
-        for(int j=0;j<list[i].size();j++){
-            cout<<list[i][j]<<" ";
+    for(int i=0;i<lists.size();i++){
+        for(int j=0;j<lists[i].size();j++){
+            cout<<lists[i][j]<<" ";
         }
         cout<<endl;
     }
    
     vector<vector<int>> graph(maxLen,vector<int>(maxLen,0));
-    for(int i=0;i<list.size();i++){
-        for(int j=0;j<list[i].size()-1;j++){
-            graph[list[i][j]-1][list[i][j+1]-1]=1;
+    for(int i=0;i<lists.size();i++){
+        for(int j=0;j<lists[i].size()-1;j++){
+            graph[lists[i][j]-1][lists[i][j+1]-1]=1;
         }
     }
 
